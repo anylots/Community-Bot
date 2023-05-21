@@ -35,7 +35,7 @@ st.set_page_config(
 )
 
 
-st.title("🧠 LangchainAppL2 - Your GenerativeAI About Layer2 🧠")
+st.title("🧠 Layer2Langchain - GenerativeAI About Layer2 🧠")
 st.markdown("Store your knowledge in a vector store and query it with OpenAI's GPT-3/4.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
