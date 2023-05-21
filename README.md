@@ -1,7 +1,9 @@
 # LangchainAppL2 - Your GenerativeAI About Layer2
 
 
-LangchainAppL2 is your GenerativeAI About Layer2, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI.
+LangchainAppL2 is your GenerativeAI About Layer2, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI. This App is based on Langchain and Quivr projects, Will continue to develop on a large scale.
+
+
 
 
 ## Features
@@ -21,37 +23,11 @@ LangchainAppL2 is your GenerativeAI About Layer2, designed to easily store and r
   - **Video**
 - **Open Source**: Quivr is open source and free to use.
 
-
-
-
-### DEMO WITH STREAMLIT IS USING OLD VERSION 
-New version is using a new UI and is not yet deployed as it doesn't have all the features of the old version.
-Should be up and live before 25/05/23
-
-### Demo with GPT3.5
-https://github.com/StanGirard/quivr/assets/19614572/80721777-2313-468f-b75e-09379f694653
-
-
-### Demo with Claude 100k context
-https://github.com/StanGirard/quivr/assets/5101573/9dba918c-9032-4c8d-9eea-94336d2c8bd4
-
-### Demo of new version - WIP
-
-
-https://github.com/StanGirard/quivr/assets/19614572/a6463b73-76c7-4bc0-978d-70562dca71f5
-
-
-
 ## Getting Started with the new version
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 *Old version readme is in the streamlit-demo folder* [here](streamlit-demo/README.md)
 
 ### Prerequisites
-
-Make sure you have the following installed before continuing:
-
-- Docker
-- Docker Compose
 
 You'll also need a [Supabase](https://supabase.com/) account for:
 
@@ -148,7 +124,7 @@ create table
 - Run the app
 
 ```bash
-docker compose build && docker compose up
+streamlit run main.py
 ```
 
 ## Built With
@@ -156,13 +132,4 @@ docker compose build && docker compose up
 * [Python](https://www.python.org/) - The programming language used.
 * [Supabase](https://supabase.io/) - The open source Firebase alternative.
 
-## Contributing
 
-Open a pull request and we'll review it as soon as possible.
-You can find all the subject we would like to tackle here -> https://github.com/users/StanGirard/projects/5
-
-Don't hesitate to come with new ones too :) 
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=StanGirard/quivr&type=Date)](https://star-history.com/#StanGirard/quivr&Date)

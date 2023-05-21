@@ -75,6 +75,8 @@ def url_uploader(supabase, openai_key, vector_store):
         button = st.button("Add the URL to the database")
 
         if button:
+            st.write(f"❌ Sorry, it's not open yet .")
+            return
             if not st.session_state["overused"]:
                 html = get_html(url)
                 if html:

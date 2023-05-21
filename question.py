@@ -29,7 +29,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
         
     
     
-    question = st.text_area("## Ask a question")
+    question = st.text_area("## Ask a question",value = "What is the Challenger")
     columns = st.columns(3)
     with columns[0]:
         button = st.button("Ask")

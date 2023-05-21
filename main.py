@@ -36,12 +36,12 @@ st.set_page_config(
 )
 
 
-st.title("🧠 Layer2Langchain - GenerativeAI About Layer2 🧠")
-st.markdown("Store your knowledge in a vector store and query it with OpenAI's GPT-3/4.")
+st.title("🤖 Layer2Langchain - GenerativeAI About Layer2 🤖")
+st.markdown("Store your data in a vector store and generate info with OpenAI's GPT-3/4.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
 
-st.markdown("---\n\n")
+# st.markdown("---\n\n")
 
 st.session_state["overused"] = False
 if self_hosted == "false":
@@ -69,61 +69,81 @@ if 'chunk_overlap' not in st.session_state:
 if 'max_tokens' not in st.session_state:
     st.session_state['max_tokens'] = 256
 
+
+tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Dog"])
+with tab1:
+   st.header("Generate")
+#    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
+   generate_choice = st.radio(
+    "", ('Chat with AI about Layer2', 'GenerateArticle'))
+   if generate_choice == 'Chat with AI about Layer2':
+        # Display model and temperature selection only when asking questions
+        st.sidebar.title("Configuration")
+        st.sidebar.markdown(
+            "Choose your model and temperature for asking questions.")
+        if st.secrets.self_hosted != "false":
+            st.session_state['model'] = st.sidebar.selectbox(
+            "Select Model", models, index=(models).index(st.session_state['model']))
+        else:
+            st.sidebar.write("**Model**: gpt-3.5-turbo")
+            st.sidebar.write("**Self Host to unlock more models such as claude-v1 and GPT4**")
+            st.session_state['model'] = "gpt-3.5-turbo"
+        st.session_state['temperature'] = st.sidebar.slider(
+            "Select Temperature", 0.0, 1.0, st.session_state['temperature'], 0.1)
+        if st.secrets.self_hosted != "false":
+            st.session_state['max_tokens'] = st.sidebar.slider(
+                "Select Max Tokens", 256, 2048, st.session_state['max_tokens'], 2048)
+        else:
+            st.session_state['max_tokens'] = 256
+        chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
+
+   else:
+        # st.sidebar.title("Generate Article Based On Vector Store")
+        st.sidebar.title("Configuration")
+        generate_Article_full(vector_store, stats_db=supabase)
+
+
+
+with tab2:
+   st.header("Vector Store Manage")
+   store_choice = st.radio(
+    "Choose an action", ('Add Knowledge', 'Forget', "Explore"))
+
+#    st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
+   if store_choice == 'Add Knowledge':
+        # Display chunk size and overlap selection only when adding knowledge
+    #   st.sidebar.title("Configuration")
+      st.sidebar.markdown(
+            "Choose your chunk size and overlap for adding knowledge.")
+      st.session_state['chunk_size'] = st.sidebar.slider(
+            "Select Chunk Size", 100, 1000, st.session_state['chunk_size'], 50)
+      st.session_state['chunk_overlap'] = st.sidebar.slider(
+            "Select Chunk Overlap", 0, 100, st.session_state['chunk_overlap'], 10)
+        
+        # Create two columns for the file uploader and URL uploader
+      col1, col2 = st.columns(2)
+        
+      with col1:
+            file_uploader(supabase, openai_api_key, vector_store)
+      with col2:
+            url_uploader(supabase, openai_api_key, vector_store)
+
+   elif store_choice == 'Forget':
+        st.sidebar.title("Configuration")
+
+        brain(supabase)
+   elif store_choice == 'Explore':
+        st.sidebar.title("Configuration")
+        view_document(supabase)
+
+with tab3:
+   st.header("A dog")
+   st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
+
+
+
 # Create a radio button for user to choose between adding knowledge or asking a question
-user_choice = st.radio(
-    "Choose an action", ('Add Knowledge', 'Chat with your Brain', 'GenerateWhitePaper', 'Forget', "Explore"))
 
-st.markdown("---\n\n")
 
-if user_choice == 'Add Knowledge':
-    # Display chunk size and overlap selection only when adding knowledge
-    st.sidebar.title("Configuration")
-    st.sidebar.markdown(
-        "Choose your chunk size and overlap for adding knowledge.")
-    st.session_state['chunk_size'] = st.sidebar.slider(
-        "Select Chunk Size", 100, 1000, st.session_state['chunk_size'], 50)
-    st.session_state['chunk_overlap'] = st.sidebar.slider(
-        "Select Chunk Overlap", 0, 100, st.session_state['chunk_overlap'], 10)
-    
-    # Create two columns for the file uploader and URL uploader
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        file_uploader(supabase, openai_api_key, vector_store)
-    with col2:
-        url_uploader(supabase, openai_api_key, vector_store)
-elif user_choice == 'Chat with your Brain':
-    # Display model and temperature selection only when asking questions
-    st.sidebar.title("Configuration")
-    st.sidebar.markdown(
-        "Choose your model and temperature for asking questions.")
-    if st.secrets.self_hosted != "false":
-        st.session_state['model'] = st.sidebar.selectbox(
-        "Select Model", models, index=(models).index(st.session_state['model']))
-    else:
-        st.sidebar.write("**Model**: gpt-3.5-turbo")
-        st.sidebar.write("**Self Host to unlock more models such as claude-v1 and GPT4**")
-        st.session_state['model'] = "gpt-3.5-turbo"
-    st.session_state['temperature'] = st.sidebar.slider(
-        "Select Temperature", 0.0, 1.0, st.session_state['temperature'], 0.1)
-    if st.secrets.self_hosted != "false":
-        st.session_state['max_tokens'] = st.sidebar.slider(
-            "Select Max Tokens", 256, 2048, st.session_state['max_tokens'], 2048)
-    else:
-        st.session_state['max_tokens'] = 256
-    
-    chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
-
-elif user_choice == 'GenerateWhitePaper':
-    st.sidebar.title("Generate Article Based On Vector Store")
-    generate_Article_full(vector_store, stats_db=supabase)
-
-elif user_choice == 'Forget':
-    st.sidebar.title("Configuration")
-
-    brain(supabase)
-elif user_choice == 'Explore':
-    st.sidebar.title("Configuration")
-    view_document(supabase)
 
 st.markdown("---\n\n")
