@@ -1,12 +1,5 @@
 # LangchainAppL2 - Your GenerativeAI About Layer2
 
-<p align="center">
-<img src="./logo.png" alt="Quivr-logo" width="30%">
-<p align="center">
-
-<a href="https://discord.gg/HUpRgp2HG8">
-  <img src="https://img.shields.io/badge/discord-join%20chat-blue.svg" alt="Join our Discord" height="40">
-</a>
 
 LangchainAppL2 is your GenerativeAI About Layer2, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI.
 

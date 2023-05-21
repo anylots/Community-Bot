@@ -35,7 +35,7 @@ st.set_page_config(
 )
 
 
-st.title("🧠 Quivr - Your second brain 🧠")
+st.title("🧠 Layer2 Robot - Your second brain on layer2 🧠")
 st.markdown("Store your knowledge in a vector store and query it with OpenAI's GPT-3/4.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
@@ -70,7 +70,7 @@ if 'max_tokens' not in st.session_state:
 
 # Create a radio button for user to choose between adding knowledge or asking a question
 user_choice = st.radio(
-    "Choose an action", ('Add Knowledge', 'Chat with your Brain', 'Forget', "Explore"))
+    "Choose an action", ('Add Knowledge', 'Chat with your Brain', 'GenerateWhitePaper', 'Forget', "Explore"))
 
 st.markdown("---\n\n")
 
@@ -112,6 +112,12 @@ elif user_choice == 'Chat with your Brain':
         st.session_state['max_tokens'] = 256
     
     chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
+    
+elif user_choice == 'GenerateWhitePaper':
+    st.sidebar.title("GenerateWhitePaper")
+    st.text_area("## Please define the chapter description")
+    st.button("Generate")
+
 elif user_choice == 'Forget':
     st.sidebar.title("Configuration")
 
