@@ -35,7 +35,7 @@ st.set_page_config(
 )
 
 
-st.title("🧠 Layer2 Robot - Your second brain on layer2 🧠")
+st.title("🧠 LangchainAppL2 - Your GenerativeAI About Layer2 🧠")
 st.markdown("Store your knowledge in a vector store and query it with OpenAI's GPT-3/4.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
@@ -112,7 +112,7 @@ elif user_choice == 'Chat with your Brain':
         st.session_state['max_tokens'] = 256
     
     chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
-    
+
 elif user_choice == 'GenerateWhitePaper':
     st.sidebar.title("GenerateWhitePaper")
     st.text_area("## Please define the chapter description")
