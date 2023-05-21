@@ -11,6 +11,7 @@ from langchain.vectorstores import SupabaseVectorStore
 from supabase import Client, create_client
 from explorer import view_document
 from stats import get_usage_today
+from generateArticle import generate_Article_full
 
 supabase_url = st.secrets.supabase_url
 supabase_key = st.secrets.supabase_service_key
@@ -114,9 +115,8 @@ elif user_choice == 'Chat with your Brain':
     chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
 
 elif user_choice == 'GenerateWhitePaper':
-    st.sidebar.title("GenerateWhitePaper")
-    st.text_area("## Please define the chapter description")
-    st.button("Generate")
+    st.sidebar.title("Generate Article Based On Vector Store")
+    generate_Article_full(vector_store, stats_db=supabase)
 
 elif user_choice == 'Forget':
     st.sidebar.title("Configuration")
