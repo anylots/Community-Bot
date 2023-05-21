@@ -38,7 +38,7 @@ def generate_Article_Steps(vector_store: SupabaseVectorStore, stats_db):
         #     template=prompt, input_variables=["section", "brief"])
         
         # generate_llm = OpenAI(
-        #     temperature=0.5, openai_api_key="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")
+        #     temperature=0.5, openai_api_key="openai_api_key")
         
         # chain = LLMChain(llm=generate_llm, prompt=prompt_template)
 
