@@ -97,7 +97,6 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
                             temperature=st.session_state['temperature'], max_tokens=1800), 
                             vector_store.as_retriever(), memory=memory, verbose=True)
         
-        chain.pro
         st.markdown(f"### <center> Optimism: A Next-Generation Layer2 Platform", unsafe_allow_html=True)
         st.session_state['chat_history'].append(("You", question))
         model_response = chain({"question": question})
