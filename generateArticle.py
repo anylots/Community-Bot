@@ -77,7 +77,9 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
     if 'chat_history' not in st.session_state:
         st.session_state['chat_history'] = []
         
-    value = "Please write a white paper about Ethereum layer2, with the technical key being the first Optimistic ZK-Rollup Solution for Ethereum, where the challenger uses zk rollup as proof of fraud"
+    # value = "Please write a white paper about Ethereum layer2, with the technical key being the first Optimistic ZK-Rollup Solution for Ethereum, where the challenger uses zk rollup as proof of fraud"
+    # value ="What is the outline of the white paper on Ethereum Layer 2 using optimistic zk-rollup technology?"
+    value = "I want to write a white paper on the Ethereum layer2 network, which is based on optimistic zk-rollup technology. Please help me write an outline first"
     question = st.text_area("Please enter a project description", value = value)
     
     button = st.button("Generate")
@@ -93,8 +95,8 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
 
         chain = ConversationalRetrievalChain.from_llm(
                         OpenAI(
-                            model_name=st.session_state['model'], openai_api_key=openai_api_key, 
-                            temperature=st.session_state['temperature'], max_tokens=1800), 
+                            model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, 
+                            temperature=1, max_tokens=1800), 
                             vector_store.as_retriever(), memory=memory, verbose=True)
         
         st.markdown(f"### <center> Optimism: A Next-Generation Layer2 Platform", unsafe_allow_html=True)
