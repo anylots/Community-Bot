@@ -30,7 +30,7 @@ if anthropic_api_key:
 
 # Set the theme
 st.set_page_config(
-    page_title="Quivr",
+    page_title="Langchain",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -70,36 +70,51 @@ if 'max_tokens' not in st.session_state:
     st.session_state['max_tokens'] = 256
 
 
+###################### Sidebar Configuration ######################
+# Generate
+st.sidebar.title("Inference Configuration")
+st.sidebar.markdown(
+    "Choose your model and temperature for asking questions.")
+if st.secrets.self_hosted != "false":
+    st.session_state['model'] = st.sidebar.selectbox(
+    "Select Model", models, index=(models).index(st.session_state['model']))
+else:
+    st.sidebar.write("**Model**: gpt-3.5-turbo")
+    st.sidebar.write("**Self Host to unlock more models such as claude-v1 and GPT4**")
+    st.session_state['model'] = "gpt-3.5-turbo"
+st.session_state['temperature'] = st.sidebar.slider(
+    "Select Temperature", 0.0, 1.0, st.session_state['temperature'], 0.1)
+if st.secrets.self_hosted != "false":
+    st.session_state['max_tokens'] = st.sidebar.slider(
+        "Select Max Tokens", 256, 2048, st.session_state['max_tokens'], 2048)
+else:
+    st.session_state['max_tokens'] = 256
+
+# Vector Store Manage
+st.sidebar.title("Vector Configuration")
+st.sidebar.markdown(
+    "Choose your chunk size and overlap for adding knowledge.")
+st.session_state['chunk_size'] = st.sidebar.slider(
+    "Select Chunk Size", 100, 1000, st.session_state['chunk_size'], 50)
+st.session_state['chunk_overlap'] = st.sidebar.slider(
+    "Select Chunk Overlap", 0, 100, st.session_state['chunk_overlap'], 10)
+
+
+
+###################### Sidebar Configuration ######################
 tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Dog"])
 with tab1:
+#    st.sidebar.empty()
    st.header("Generate")
 #    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
    generate_choice = st.radio(
     "", ('Chat with AI about Layer2', 'GenerateArticle'))
    if generate_choice == 'Chat with AI about Layer2':
-        # Display model and temperature selection only when asking questions
-        st.sidebar.title("Configuration")
-        st.sidebar.markdown(
-            "Choose your model and temperature for asking questions.")
-        if st.secrets.self_hosted != "false":
-            st.session_state['model'] = st.sidebar.selectbox(
-            "Select Model", models, index=(models).index(st.session_state['model']))
-        else:
-            st.sidebar.write("**Model**: gpt-3.5-turbo")
-            st.sidebar.write("**Self Host to unlock more models such as claude-v1 and GPT4**")
-            st.session_state['model'] = "gpt-3.5-turbo"
-        st.session_state['temperature'] = st.sidebar.slider(
-            "Select Temperature", 0.0, 1.0, st.session_state['temperature'], 0.1)
-        if st.secrets.self_hosted != "false":
-            st.session_state['max_tokens'] = st.sidebar.slider(
-                "Select Max Tokens", 256, 2048, st.session_state['max_tokens'], 2048)
-        else:
-            st.session_state['max_tokens'] = 256
+
         chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
 
    else:
         # st.sidebar.title("Generate Article Based On Vector Store")
-        st.sidebar.title("Configuration")
         generate_Article_full(vector_store, stats_db=supabase)
 
 
@@ -112,13 +127,6 @@ with tab2:
 #    st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
    if store_choice == 'Add Knowledge':
         # Display chunk size and overlap selection only when adding knowledge
-    #   st.sidebar.title("Configuration")
-      st.sidebar.markdown(
-            "Choose your chunk size and overlap for adding knowledge.")
-      st.session_state['chunk_size'] = st.sidebar.slider(
-            "Select Chunk Size", 100, 1000, st.session_state['chunk_size'], 50)
-      st.session_state['chunk_overlap'] = st.sidebar.slider(
-            "Select Chunk Overlap", 0, 100, st.session_state['chunk_overlap'], 10)
         
         # Create two columns for the file uploader and URL uploader
       col1, col2 = st.columns(2)
@@ -129,11 +137,9 @@ with tab2:
             url_uploader(supabase, openai_api_key, vector_store)
 
    elif store_choice == 'Forget':
-        st.sidebar.title("Configuration")
-
         brain(supabase)
+
    elif store_choice == 'Explore':
-        st.sidebar.title("Configuration")
         view_document(supabase)
 
 with tab3:

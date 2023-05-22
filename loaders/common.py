@@ -12,9 +12,9 @@ def process_file(vector_store, file, loader_class, file_suffix, stats_db=None):
     file_sha = ""
     file_name = file.name
     file_size = file.size
-    if file_size > 2000:
-        st.error("File size is too large. Please upload a file smaller than 2KB.")
-        return
+    # if file_size > 2000:
+    #     st.error("File size is too large. Please upload a file smaller than 2KB.")
+    #     return
     
     if st.secrets.self_hosted == "false":
         if file_size > 1000000:
