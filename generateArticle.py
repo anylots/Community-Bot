@@ -76,11 +76,6 @@ def generate_Article_Steps(vector_store: SupabaseVectorStore, stats_db):
 def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
     if 'chat_history' not in st.session_state:
         st.session_state['chat_history'] = []
-
-    article_template = """Given the following question, rephrase the follow up question to be a standalone question.
-    Follow Up Input: {question}
-    Standalone question:"""
-    CONDENSE_QUESTION_PROMPT = PromptTemplate.from_template(_template)
         
     value = "Please write a white paper about Ethereum layer2, with the technical key being the first Optimistic ZK-Rollup Solution for Ethereum, where the challenger uses zk rollup as proof of fraud"
     question = st.text_area("Please enter a project description", value = value)
