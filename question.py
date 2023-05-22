@@ -63,7 +63,8 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
             st.session_state['chat_history'].append(("You", question))
 
             # Generate model's response and add it to chat history
-            model_response = qa({"question": question})
+            with st.spinner('Wait for OpenAI and vector store to process ...'):
+                model_response = qa({"question": question})
             logger.info('Result: %s', model_response)
 
             st.session_state['chat_history'].append(("Quivr", model_response["answer"]))
@@ -72,6 +73,8 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
             st.empty()
             for speaker, text in st.session_state['chat_history']:
                 st.markdown(f"**{speaker}:** {text}")
+                
+            st.balloons()
         else:
             st.error("You have used all your free credits. Please try again later or self host.")
         
