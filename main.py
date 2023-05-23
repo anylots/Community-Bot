@@ -100,7 +100,6 @@ st.session_state['chunk_overlap'] = st.sidebar.slider(
     "Select Chunk Overlap", 0, 100, st.session_state['chunk_overlap'], 10)
 
 
-
 ###################### Sidebar Configuration ######################
 tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Dog"])
 with tab1:
@@ -114,7 +113,6 @@ with tab1:
         chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
 
    else:
-        # st.sidebar.title("Generate Article Based On Vector Store")
         generate_Article_full(vector_store, stats_db=supabase)
 
 
