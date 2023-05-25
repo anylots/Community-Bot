@@ -6,6 +6,7 @@ from langchain.vectorstores import SupabaseVectorStore
 import streamlit as st
 from langchain.memory import ConversationBufferMemory
 import time
+from sectionsLoader import getSections,sectionTxtTest
 
 openai_api_key = st.secrets.openai_api_key
 memory = ConversationBufferMemory(
@@ -34,14 +35,6 @@ def generate_Article_Steps(vector_store: SupabaseVectorStore, stats_db):
         ```{brief}```
         CONTENT:
         """
-        # generate_prompt = generate_prompt.replace("ACTION", brief)
-        # prompt_template = PromptTemplate(
-        #     template=prompt, input_variables=["section", "brief"])
-        
-        # generate_llm = OpenAI(
-        #     temperature=0.5, openai_api_key="openai_api_key")
-        
-        # chain = LLMChain(llm=generate_llm, prompt=prompt_template)
 
         chain = ConversationalRetrievalChain.from_llm(
                         OpenAI(
@@ -72,14 +65,6 @@ def generate_Article_Steps(vector_store: SupabaseVectorStore, stats_db):
             # print(result)
             # response += "\n"
 
-
-
-# if 'chat_history' not in st.session_state:
-#     st.session_state['chat_history'] = []
-
-# if 'detailMsg' not in st.session_state:
-#     st.session_state['detailMsg'] = []
-
 def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
     if 'chat_history' not in st.session_state:
         st.session_state['chat_history'] = []
@@ -88,10 +73,16 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
         st.session_state['result'] = ""
 
     if "detailMsg" not in st.session_state:
-        st.session_state["detailMsg"] = ""
+        st.session_state["detailMsg"] = []
         
     if "showDetail" not in st.session_state:
         st.session_state["showDetail"] = False
+
+    if "sections" not in st.session_state:
+        st.session_state["sections"] = []
+    
+
+    detailNew = False
     # value = "Please write a white paper about Ethereum layer2, with the technical key being the first Optimistic ZK-Rollup Solution for Ethereum, where the challenger uses zk rollup as proof of fraud"
     # value ="What is the outline of the white paper on Ethereum Layer 2 using optimistic zk-rollup technology?"
     value = "I want to write a white paper on the Ethereum layer2 network, which is based on optimistic zk-rollup technology. Please help me write an outline first"
@@ -116,31 +107,57 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
         
         # st.markdown(f"### <center> Optimism: A Next-Generation Layer2 Platform", unsafe_allow_html=True)
         st.session_state['chat_history'].append(("You", question))
-        with st.spinner('Wait for OpenAI and vector store to process ...'):
-            model_response = chain({"question": question})
+        with st.spinner('Waiting for OpenAI and vector store to process ...'):
+            # model_response = chain({"question": question})
             # model_response ={"answer":"This feature is in active development"}
+            time.sleep(2)
+            model_response = {"answer":"This feature is in active development"}
+            sections = getSections("sectionTxt")
+            st.session_state["sections"] = sections
+
         result = model_response["answer"]
         st.session_state['result'] =result
         st.balloons()
         st.session_state["showDetail"]= True
         # st.snow()
 
-
-
 # Print the session state to make it easier to see what's happening
     if st.session_state["showDetail"]:
         st.markdown(f"### <center> Optimism: A Next-Generation Layer2 Platform", unsafe_allow_html=True)
 
-    st.markdown(st.session_state["result"])
+    # st.markdown(st.session_state["result"])
+    sections = st.session_state["sections"]
+    for info in sections:
+        st.markdown(info)
     st.markdown("---\n\n")
     if st.session_state["showDetail"]:
        if st.button("GenerateDetail"):
-            print("test")
-            questionDetail = "result"
-            # responseDetail = chain({"question": questionDetail})
-            responseDetail ={"answer":"This feature is in active development"}
-            resultDetail = responseDetail["answer"]
-            st.session_state["detailMsg"] = resultDetail
-    st.markdown(st.session_state["detailMsg"])
+            chain = ConversationalRetrievalChain.from_llm(
+                OpenAI(
+                    model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, 
+                    temperature=1, max_tokens=1800), 
+                    vector_store.as_retriever(), memory=memory, verbose=True)
+
+            sectionTxt = st.session_state["result"]
+            sections = getSections(sectionTxt)
+            for section in sections:
+                title = str(section).split("\n")[1]
+                with st.spinner('Waiting for OpenAI and vector store to process ...'):
+                    detail = chain({"question": str(section).strip()})
+                    # detail ={"answer":"This feature is in active development"}
+                    detailNew = True
+                    st.session_state["detailMsg"].append((title,detail["answer"]))
+                    st.markdown("#### "+title)
+                    st.markdown(detail["answer"])
+                    st.button("ReGenerate",key = title)
+                    st.markdown("\n\n\n")
+
+
+    if detailNew == False:
+        for title, content in st.session_state["detailMsg"]:
+            st.markdown("#### "+title)
+            st.markdown(content)
+            st.button("ReGenerate",key = title)
+            st.markdown("\n\n\n")
 
 

@@ -63,7 +63,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
             st.session_state['chat_history'].append(("You", question))
 
             # Generate model's response and add it to chat history
-            with st.spinner('Wait for OpenAI and vector store to process ...'):
+            with st.spinner('Waiting for OpenAI and vector store to process ...'):
                 model_response = qa({"question": question})
             logger.info('Result: %s', model_response)
 
