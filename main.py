@@ -107,7 +107,7 @@ with tab1:
    st.header("Generate")
 #    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
    generate_choice = st.radio(
-    "", ('Chat with AI about Layer2', 'GenerateArticle'))
+    "", ('GenerateArticle','Chat with AI about Layer2'))
    if generate_choice == 'Chat with AI about Layer2':
 
         chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
