@@ -12,6 +12,7 @@ from supabase import Client, create_client
 from explorer import view_document
 from stats import get_usage_today
 from generateArticle import generate_Article_full
+from evm import deploy_contract
 
 supabase_url = st.secrets.supabase_url
 supabase_key = st.secrets.supabase_service_key
@@ -101,16 +102,18 @@ st.session_state['chunk_overlap'] = st.sidebar.slider(
 
 
 ###################### Sidebar Configuration ######################
-tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Dog"])
+tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Layer2 Manage"])
 with tab1:
 #    st.sidebar.empty()
    st.header("Generate")
 #    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
    generate_choice = st.radio(
-    "", ('GenerateArticle','Chat with AI about Layer2'))
+    "", ('GenerateArticle','Chat with AI about Layer2','Chat with Layer1'))
    if generate_choice == 'Chat with AI about Layer2':
-
         chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
+   
+   elif generate_choice == 'Chat with Layer1':
+       "do_nothing"
 
    else:
         generate_Article_full(vector_store, stats_db=supabase)
@@ -141,8 +144,9 @@ with tab2:
         view_document(supabase)
 
 with tab3:
-   st.header("A dog")
-   st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
+#    st.header("Layer2 Manage")
+   deploy_contract()
+#    st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
 
 
 

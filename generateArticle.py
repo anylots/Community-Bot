@@ -168,7 +168,7 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
 
     if detailNew == False:
         for title, content in st.session_state["detailMsg"]:
-            st.markdown("#### "+title)
+            st.markdown("#### " + title)
             st.markdown(content)
             st.button("ReGenerate",key = title,disabled =True)
             st.markdown("\n\n\n")

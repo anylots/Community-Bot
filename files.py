@@ -71,11 +71,11 @@ def filter_file(file, supabase, vector_store):
 
 def url_uploader(supabase, openai_key, vector_store):
     
-        url = st.text_area("**Add an url**",placeholder="https://www.quivr.app")
+        url = st.text_area("**Add an url**",placeholder="https://www.ethereum.org")
         button = st.button("Add the URL to the database")
 
         if button:
-            st.write(f"❌ Sorry, it's not open yet .")
+            st.write(f"Sorry, it's not open yet .")
             return
             if not st.session_state["overused"]:
                 html = get_html(url)
