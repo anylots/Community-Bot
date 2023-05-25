@@ -12,7 +12,7 @@ def deploy_contract():
 
     if contract_call:
         with st.spinner('Waiting for OpenAI generate the scripts of contract call ...'):
-            time.sleep(0.7)
+            time.sleep(1.5)
             columns = st.columns(3)
             with columns[0]:
                 st.button("Approve", type = "secondary")
