@@ -32,7 +32,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
     question = st.text_area("## Ask a question",value = "What is the Challenger")
     columns = st.columns(3)
     with columns[0]:
-        button = st.button("Ask")
+        button = st.button("Ask", type = "primary")
     with columns[1]:
         count_button = st.button("Count Tokens", type='secondary')
     with columns[2]:
@@ -52,7 +52,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
                 logger.info('Using OpenAI model %s', model)
                 qa = ConversationalRetrievalChain.from_llm(
                     OpenAI(
-                        model_name=st.session_state['model'], openai_api_key=openai_api_key, temperature=st.session_state['temperature'], max_tokens=st.session_state['max_tokens']), vector_store.as_retriever(), memory=memory, verbose=True)
+                        model_name='gpt-3.5-turbo', openai_api_key=openai_api_key, temperature=0.8, max_tokens=512), vector_store.as_retriever(), memory=memory, verbose=True)
             elif anthropic_api_key and model.startswith("claude"):
                 logger.info('Using Anthropics model %s', model)
                 qa = ConversationalRetrievalChain.from_llm(

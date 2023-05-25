@@ -23,7 +23,7 @@ self_hosted = st.secrets.self_hosted
 embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 vector_store = SupabaseVectorStore(
     supabase, embeddings, table_name="documents")
-models = ["gpt-3.5-turbo", "gpt-4"]
+models = ["gpt-3.5-turbo", "davinci"]
 if anthropic_api_key:
     models += ["claude-v1", "claude-v1.3",
                "claude-instant-v1-100k", "claude-instant-v1.1-100k"]
@@ -37,7 +37,7 @@ st.set_page_config(
 
 
 st.title("🤖 Layer2Langchain - GenerativeAI About Layer2 🤖")
-st.markdown("Store your data in a vector store and generate info with OpenAI's GPT-3/4.")
+st.markdown("Store your data in a vector store and generate info with OpenAI's LLM.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
 
