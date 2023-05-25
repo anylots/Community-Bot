@@ -7,6 +7,13 @@ def deploy_contract():
     st.text_area("Describe the contract:",value ="Please help me write an erc20 contract, and token transfers require a 0.4% tax")
     st.button("Write By GPT & Compile", type = "primary")
 
+
+    st.markdown("---\n")
+    st.markdown("#### "+ "Contract Deploy")
+    st.text_area("ByteCode:",placeholder="0x60806040")
+    st.button("Deploy on layer2", type = "primary")
+    st.markdown("Contract Address:"+"0x7759e73e9b29eB76476b1B0a21c6608fEDc8C16C")
+
     st.markdown("---\n")
     contract_call = st.button("Generate Call function By GPT With ABI", type="primary")
 
@@ -20,11 +27,4 @@ def deploy_contract():
                 st.button("Transfer", type='secondary')
             with columns[2]:
                 st.button("Transfer From", type='secondary')
-
-    st.markdown("---\n")
-    st.markdown("#### "+ "Contract Deploy")
-    st.text_area("ByteCode:",placeholder="0x60806040")
-    st.button("Deploy on layer2", type = "primary")
-    st.markdown("Contract Address:"+"0x7759e73e9b29eB76476b1B0a21c6608fEDc8C16C")
-
 
