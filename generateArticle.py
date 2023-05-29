@@ -174,3 +174,5 @@ def generate_Article_full(vector_store: SupabaseVectorStore, stats_db):
             st.markdown("\n\n\n")
 
 
+def fetchPrompt():
+    "Please consider yourself as a developer of a blockchain project"
