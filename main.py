@@ -37,7 +37,7 @@ st.set_page_config(
 )
 
 
-st.title("🤖 Layer2Langchain - GenerativeAI About Layer2 🤖")
+st.title("🤖 Chat with Layer2 🤖")
 st.markdown("Store your data in a vector store and generate info with OpenAI's LLM.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
@@ -105,18 +105,10 @@ st.session_state['chunk_overlap'] = st.sidebar.slider(
 tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Layer2 Manage"])
 with tab1:
 #    st.sidebar.empty()
-   st.header("Generate")
+   st.header("Chat")
 #    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
-   generate_choice = st.radio(
-    "", ('GenerateArticle','Chat with AI about Layer2','Chat with Layer1'))
-   if generate_choice == 'Chat with AI about Layer2':
-        chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
-   
-   elif generate_choice == 'Chat with Layer1':
-       "do_nothing"
+   chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
 
-   else:
-        generate_Article_full(vector_store, stats_db=supabase)
 
 
 
