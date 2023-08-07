@@ -37,8 +37,8 @@ st.set_page_config(
 )
 
 
-st.title("🤖 Chat with Layer2 🤖")
-st.markdown("Store your data in a vector store and generate info with OpenAI's LLM.")
+st.title("🤖 Chat with Morphism 🤖")
+st.markdown("Talk to a language model about morphism knowledge.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
 
@@ -62,16 +62,21 @@ if self_hosted == "false":
 if 'model' not in st.session_state:
     st.session_state['model'] = "gpt-3.5-turbo"
 if 'temperature' not in st.session_state:
-    st.session_state['temperature'] = 0.0
+    st.session_state['temperature'] = 0.4
 if 'chunk_size' not in st.session_state:
     st.session_state['chunk_size'] = 500
 if 'chunk_overlap' not in st.session_state:
-    st.session_state['chunk_overlap'] = 0
+    st.session_state['chunk_overlap'] = 20
 if 'max_tokens' not in st.session_state:
-    st.session_state['max_tokens'] = 256
+    st.session_state['max_tokens'] = 512
 
 
 ###################### Sidebar Configuration ######################
+##default param
+st.session_state['temperature']=0.4
+st.session_state['max_tokens']=512
+
+
 # Generate
 st.sidebar.title("Inference Configuration")
 st.sidebar.markdown(
@@ -102,7 +107,7 @@ st.session_state['chunk_overlap'] = st.sidebar.slider(
 
 
 ###################### Sidebar Configuration ######################
-tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Layer2 Manage"])
+tab1, tab2 = st.tabs(["Chat", "Vector Store Manage"])
 with tab1:
 #    st.sidebar.empty()
    st.header("Chat")
@@ -135,9 +140,9 @@ with tab2:
    elif store_choice == 'Explore':
         view_document(supabase)
 
-with tab3:
-#    st.header("Layer2 Manage")
-   deploy_contract()
+# with tab3:
+# #    st.header("Layer2 Manage")
+#    deploy_contract()
 #    st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
 
 
