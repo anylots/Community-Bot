@@ -60,7 +60,7 @@ if self_hosted == "false":
 if 'model' not in st.session_state:
     st.session_state['model'] = "gpt-3.5-turbo"
 if 'temperature' not in st.session_state:
-    st.session_state['temperature'] = 0.4
+    st.session_state['temperature'] = 0.8
 if 'chunk_size' not in st.session_state:
     st.session_state['chunk_size'] = 500
 if 'chunk_overlap' not in st.session_state:
@@ -71,8 +71,8 @@ if 'max_tokens' not in st.session_state:
 
 ###################### Sidebar Configuration ######################
 ##default param
-st.session_state['temperature']=0.4
-st.session_state['max_tokens']=1024
+# st.session_state['temperature']=0.4
+# st.session_state['max_tokens']=1024
 
 
 # Generate
