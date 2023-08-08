@@ -1,4 +1,5 @@
-langchain==0.0.166
+# langchain==0.0.166
+langchain==0.0.247
 Markdown==3.4.3
 openai==0.27.6
 pdf2image==1.16.3
