@@ -70,7 +70,7 @@ if 'chunk_overlap' not in st.session_state:
 if 'max_tokens' not in st.session_state:
     st.session_state['max_tokens'] = 256
 
-
+st.session_state['temperature']=0.4
 ###################### Sidebar Configuration ######################
 # Generate
 st.sidebar.title("Inference Configuration")
