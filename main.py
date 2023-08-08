@@ -37,8 +37,8 @@ st.set_page_config(
 )
 
 
-st.title("🤖 Chat with Morphism 🤖")
-st.markdown("Talk to a language model about morphism knowledge.")
+st.title("🤖 Chat with LLM 🤖")
+st.markdown("Talk to a language model about the latest web3 knowledge.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
 
