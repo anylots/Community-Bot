@@ -53,6 +53,12 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
                 qa = ConversationalRetrievalChain.from_llm(
                     OpenAI(
                         model_name='gpt-3.5-turbo', openai_api_key=openai_api_key, temperature=st.session_state['temperature'], max_tokens=st.session_state['max_tokens']), vector_store.as_retriever(), memory=memory, verbose=True)
+            
+            if model.startswith("davinci"):
+                logger.info('Using OpenAI model %s', model)
+                qa = ConversationalRetrievalChain.from_llm(
+                    OpenAI(
+                        model_name='text-davinci-003', openai_api_key=openai_api_key, temperature=st.session_state['temperature'], max_tokens=st.session_state['max_tokens']), vector_store.as_retriever(), memory=memory, verbose=True)
             elif anthropic_api_key and model.startswith("claude"):
                 logger.info('Using Anthropics model %s', model)
                 qa = ConversationalRetrievalChain.from_llm(
