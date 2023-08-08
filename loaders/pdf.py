@@ -4,4 +4,4 @@ from langchain.document_loaders import PyMuPDFLoader
 
 
 def process_pdf(vector_store, file, stats_db):
-    return process_file(vector_store, file, PyMuPDFLoader, ".pdf", stats_db=stats_db)
+    return process_file(vector_store, file, PyPDFLoader, ".pdf", stats_db=stats_db)
