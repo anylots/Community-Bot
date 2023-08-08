@@ -66,13 +66,13 @@ if 'chunk_size' not in st.session_state:
 if 'chunk_overlap' not in st.session_state:
     st.session_state['chunk_overlap'] = 20
 if 'max_tokens' not in st.session_state:
-    st.session_state['max_tokens'] = 2048
+    st.session_state['max_tokens'] = 1024
 
 
 ###################### Sidebar Configuration ######################
 ##default param
 st.session_state['temperature']=0.4
-st.session_state['max_tokens']=2048
+st.session_state['max_tokens']=1024
 
 
 # Generate
