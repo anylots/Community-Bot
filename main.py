@@ -4,7 +4,7 @@ import tempfile
 
 import streamlit as st
 from files import file_uploader, url_uploader
-from question import chat_with_doc
+from question import chat_with_doc_zh
 from brain import brain
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import SupabaseVectorStore
@@ -37,8 +37,8 @@ st.set_page_config(
 )
 
 
-st.title("🤖 Chat with Morphism 🤖")
-st.markdown("Talk to a language model about morphism knowledge.")
+st.title("🤖 Chat with LLM 🤖")
+st.markdown("Talk to a language model about the latest web3 knowledge.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
 
@@ -112,7 +112,7 @@ with tab1:
 #    st.sidebar.empty()
    st.header("Chat")
 #    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
-   chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
+   chat_with_doc_zh(st.session_state['model'], vector_store, stats_db=supabase)
 
 
 

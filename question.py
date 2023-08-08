@@ -90,7 +90,7 @@ def chat_with_doc_zh(model, vector_store: SupabaseVectorStore, stats_db):
         
     
     
-    question = st.text_area("## Ask a question",value = "What is the ZK-rollups")
+    question = st.text_area("## Ask a question",value = "什么是Ceramic")
     columns = st.columns(3)
     with columns[0]:
         button = st.button("Ask", type = "primary")
