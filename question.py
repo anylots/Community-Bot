@@ -29,7 +29,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
         
     
     
-    question = st.text_area("## Ask a question",value = "What is the ZK-rollups")
+    question = st.text_area("## Ask a question",value = "What is Ceramic")
     columns = st.columns(3)
     with columns[0]:
         button = st.button("Ask", type = "primary")
@@ -46,6 +46,11 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
 
     if button:
         qa = None
+        if len(question) == 0 or question == None or question.isspace():
+            st.empty()
+            st.markdown(f"**Quivr:** Please ask a question")
+            return
+
         if not st.session_state["overused"]:
             add_usage(stats_db, "chat", "prompt" + question, {"model": model, "temperature": st.session_state['temperature']})
             if model.startswith("gpt"):
@@ -62,6 +67,8 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
             
             st.session_state['chat_history'].append(("You", question))
 
+            if is_contain_chinese(question):
+                question = question+",请使用中文回答"
             # Generate model's response and add it to chat history
             with st.spinner('Waiting for OpenAI and vector store to process ...'):
                 model_response = qa({"question": question})
@@ -142,3 +149,10 @@ def chat_with_doc_zh(model, vector_store: SupabaseVectorStore, stats_db):
         
     if count_button:
         st.write(count_tokens(question, model))
+
+
+def is_contain_chinese(check_str):
+    for ch in check_str:
+        if u'\u4e00' <= ch <= u'\u9fff':
+            return True
+    return False

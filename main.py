@@ -11,8 +11,6 @@ from langchain.vectorstores import SupabaseVectorStore
 from supabase import Client, create_client
 from explorer import view_document
 from stats import get_usage_today
-from generateArticle import generate_Article_full
-from evm import deploy_contract
 
 supabase_url = st.secrets.supabase_url
 supabase_key = st.secrets.supabase_service_key
