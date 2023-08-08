@@ -39,7 +39,7 @@ def process_file(vector_store, file, loader_class, file_suffix, stats_db=None):
     # documents = [doc.page_content.replace('\\u0000', '') for doc in documents]
 
     # Add the document sha1 as metadata to each document
-    docs_with_metadata = [Document(page_content=doc.page_content.replace('\\u0000', ''), metadata={"file_sha1": file_sha1,"file_size":file_size ,"file_name": file_name, "chunk_size": chunk_size, "chunk_overlap": chunk_overlap, "date": dateshort}) for doc in documents]
+    docs_with_metadata = [Document(page_content=doc.page_content.replace('\u0000', ''), metadata={"file_sha1": file_sha1,"file_size":file_size ,"file_name": file_name, "chunk_size": chunk_size, "chunk_overlap": chunk_overlap, "date": dateshort}) for doc in documents]
     
     vector_store.add_documents(docs_with_metadata)
     if stats_db:
