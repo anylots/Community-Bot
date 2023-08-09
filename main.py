@@ -1,7 +1,4 @@
 # main.py
-import os
-import tempfile
-
 import streamlit as st
 from files import file_uploader, url_uploader
 from question import chat_with_doc
