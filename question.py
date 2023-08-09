@@ -73,7 +73,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
             st.session_state['chat_history'].append(("You", question))
 
             if is_contain_chinese(question):
-                question = question+",请使用中文回答"
+                question = question+",Please answer in Chinese"
             # Generate model's response and add it to chat history
             with st.spinner('Waiting for OpenAI and vector store to process ...'):
                 model_response = qa({"question": question})
