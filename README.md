@@ -41,13 +41,13 @@ You'll also need a [Supabase](https://supabase.com/) account for:
 
   1. If you don't have an SSH key set up:
   ```bash
-  git clone https://github.com/StanGirard/Quivr.git && cd Quivr
+  git clone https://github.com/anylots/Community-Bot.git && cd Community-Bot
   ```
 
   2. If you have an SSH key set up or want to add it (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
   ```bash
-  git clone git@github.com:StanGirard/Quivr.git && cd Quivr
+  git clone git@github.com:Anylots/Community-Bot.git && cd Community-Bot
   ```
 
 - Copy the `.XXXXX_env` files
@@ -121,8 +121,13 @@ create table
   );
 ```
 
-- Run the app
+- Install dependencies
+```bash
+pip install streamlit
+pip install -r requirements.txt
+```
 
+- Run the app
 ```bash
 streamlit run main.py
 ```
