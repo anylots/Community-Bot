@@ -7,6 +7,8 @@ from langchain.llms import OpenAI
 from langchain.chat_models import ChatAnthropic
 from langchain.vectorstores import SupabaseVectorStore
 from stats import add_usage
+from retrievalApp import search_and_llm
+
 
 memory = ConversationBufferMemory(
     memory_key="chat_history", return_messages=True)
@@ -72,11 +74,13 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
             
             st.session_state['chat_history'].append(("You", question))
 
-            if is_contain_chinese(question):
-                question = question+",Please answer in Chinese"
+            # if is_contain_chinese(question):
+            #     question = question+",Please answer in Chinese"
             # Generate model's response and add it to chat history
             with st.spinner('Waiting for OpenAI and vector store to process ...'):
-                model_response = qa({"question": question})
+                # model_response = qa({"question": question})
+                model_response = search_and_llm(question)
+
             logger.info('Result: %s', model_response)
 
             st.session_state['chat_history'].append(("Quivr", model_response["answer"]))
