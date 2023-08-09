@@ -1,7 +1,7 @@
 # Community-Bot - Your GenerativeAI
 
 
-community-bot is your GenerativeAI About Your expand knowledge base, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI. This App is based on Langchain and Quivr projects, Will continue to develop on a large scale.
+community-bot is your GenerativeAI About Your expand knowledge base, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI. This App is based on Langchain and Quivr projects, Will continue to develop on a large scale.<br>
 This app can answer you in Chinese based on English and Chinese knowledge.
 
 
