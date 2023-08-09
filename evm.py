@@ -11,7 +11,7 @@ def deploy_contract():
     st.markdown("---\n")
     st.markdown("#### "+ "Contract Deploy")
     st.text_area("ByteCode:",placeholder="0x60806040")
-    st.button("Deploy on layer2", type = "primary")
+    st.button("Deploy on web3", type = "primary")
     st.markdown("Contract Address:"+"0x7759e73e9b29eB76476b1B0a21c6608fEDc8C16C")
 
     st.markdown("---\n")

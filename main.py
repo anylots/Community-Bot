@@ -1,7 +1,4 @@
 # main.py
-import os
-import tempfile
-
 import streamlit as st
 from files import file_uploader, url_uploader
 from question import chat_with_doc
@@ -11,8 +8,6 @@ from langchain.vectorstores import SupabaseVectorStore
 from supabase import Client, create_client
 from explorer import view_document
 from stats import get_usage_today
-from generateArticle import generate_Article_full
-from evm import deploy_contract
 
 supabase_url = st.secrets.supabase_url
 supabase_key = st.secrets.supabase_service_key
@@ -37,8 +32,8 @@ st.set_page_config(
 )
 
 
-st.title("🤖 Layer2Langchain - GenerativeAI About Layer2 🤖")
-st.markdown("Store your data in a vector store and generate info with OpenAI's LLM.")
+st.title("🤖 Chat with LLM 🤖")
+st.markdown("Talk to a language model about the latest web3 knowledge.")
 if self_hosted == "false":
     st.markdown('**📢 Note: In the public demo, access to functionality is restricted. You can only use the GPT-3.5-turbo model and upload files up to 1Mb. To use more models and upload larger files, consider self-hosting Quivr.**')
 
@@ -62,16 +57,21 @@ if self_hosted == "false":
 if 'model' not in st.session_state:
     st.session_state['model'] = "gpt-3.5-turbo"
 if 'temperature' not in st.session_state:
-    st.session_state['temperature'] = 0.0
+    st.session_state['temperature'] = 0.8
 if 'chunk_size' not in st.session_state:
     st.session_state['chunk_size'] = 500
 if 'chunk_overlap' not in st.session_state:
-    st.session_state['chunk_overlap'] = 0
+    st.session_state['chunk_overlap'] = 20
 if 'max_tokens' not in st.session_state:
-    st.session_state['max_tokens'] = 256
+    st.session_state['max_tokens'] = 1024
 
 st.session_state['temperature']=0.4
 ###################### Sidebar Configuration ######################
+##default param
+# st.session_state['temperature']=0.4
+# st.session_state['max_tokens']=1024
+
+
 # Generate
 st.sidebar.title("Inference Configuration")
 st.sidebar.markdown(
@@ -102,21 +102,13 @@ st.session_state['chunk_overlap'] = st.sidebar.slider(
 
 
 ###################### Sidebar Configuration ######################
-tab1, tab2, tab3 = st.tabs(["Generate", "Vector Store Manage", "Layer2 Manage"])
+tab1, tab2 = st.tabs(["Chat", "Vector Store Manage"])
 with tab1:
 #    st.sidebar.empty()
-   st.header("Generate")
+   st.header("Chat")
 #    st.image("https://static.streamlit.io/examples/cat.jpg", width=200)
-   generate_choice = st.radio(
-    "", ('GenerateArticle','Chat with AI about Layer2','Chat with Layer1'))
-   if generate_choice == 'Chat with AI about Layer2':
-        chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
-   
-   elif generate_choice == 'Chat with Layer1':
-       "do_nothing"
+   chat_with_doc(st.session_state['model'], vector_store, stats_db=supabase)
 
-   else:
-        generate_Article_full(vector_store, stats_db=supabase)
 
 
 
@@ -143,9 +135,9 @@ with tab2:
    elif store_choice == 'Explore':
         view_document(supabase)
 
-with tab3:
-#    st.header("Layer2 Manage")
-   deploy_contract()
+# with tab3:
+# #    st.header("Layer2 Manage")
+#    deploy_contract()
 #    st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
 
 

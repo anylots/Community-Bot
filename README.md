@@ -1,7 +1,7 @@
-# LangchainAppL2 - Your GenerativeAI About Layer2
+# Community-Bot - Your GenerativeAI
 
 
-LangchainAppL2 is your GenerativeAI About Layer2, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI. This App is based on Langchain and Quivr projects, Will continue to develop on a large scale.
+community-bot is your GenerativeAI About Your expand knowledge base, designed to easily store and retrieve unstructured information. It's like Obsidian but powered by generative AI. This App is based on Langchain and Quivr projects, Will continue to develop on a large scale.
 
 
 
