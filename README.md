@@ -8,9 +8,9 @@ community-bot is your GenerativeAI About Your expand knowledge base, designed to
 
 ## Features
 
-- **Store Anything**: Quivr can handle almost any type of data you throw at it. Text, images, code snippets, you name it.
-- **Generative AI**: Quivr uses advanced AI to help you generate and retrieve information.
-- **Fast and Efficient**: Designed with speed and efficiency in mind. Quivr makes sure you can access your data as quickly as possible.
+- **Store Anything**: Community-Bot can handle almost any type of data you throw at it. Text, images, code snippets, you name it.
+- **Generative AI**: Community-Bot uses advanced AI to help you generate and retrieve information.
+- **Fast and Efficient**: Designed with speed and efficiency in mind. Community-Bot makes sure you can access your data as quickly as possible.
 - **Secure**: Your data is always under your control.
 - **Compatible Files**: 
   - **Text**
@@ -21,7 +21,7 @@ community-bot is your GenerativeAI About Your expand knowledge base, designed to
   - **Word**
   - **Audio**
   - **Video**
-- **Open Source**: Quivr is open source and free to use.
+- **Open Source**: Community-Bot is open source and free to use.
 
 ## Getting Started with the new version
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
