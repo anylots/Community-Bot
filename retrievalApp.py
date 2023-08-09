@@ -40,8 +40,8 @@ PROMPT = PromptTemplate(
 # docsearch = Chroma.from_documents(texts, embeddings)
 
 chain_type_kwargs = {"prompt": PROMPT} 
-qa = RetrievalQA.from_chain_type(llm=OpenAI(model_name='gpt-3.5-turbo', temperature=0.4, max_tokens=1024, openai_api_key="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"), chain_type="stuff", retriever=vector_store.as_retriever(),chain_type_kwargs=chain_type_kwargs)
-# qa = RetrievalQA.from_llm(llm=OpenAI(model_name='gpt-3.5-turbo', temperature=0.4, max_tokens=1024, openai_api_key="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"), retriever=vector_store.as_retriever(),prompt=PROMPT)
+qa = RetrievalQA.from_chain_type(llm=OpenAI(model_name='gpt-3.5-turbo', temperature=0.4, max_tokens=1024, openai_api_key=openai_api_key), chain_type="stuff", retriever=vector_store.as_retriever(),chain_type_kwargs=chain_type_kwargs)
+# qa = RetrievalQA.from_llm(llm=OpenAI(model_name='gpt-3.5-turbo', temperature=0.4, max_tokens=1024, openai_api_key=""), retriever=vector_store.as_retriever(),prompt=PROMPT)
 
 # query = "what is desoc"
 # res = qa.run(query)
