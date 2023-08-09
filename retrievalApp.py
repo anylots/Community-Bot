@@ -24,7 +24,7 @@ prompt_template = """Use the following pieces of context to answer the question 
 {context}
 
 Question: {question}
-Answer in Chinese(include necessary English terminology):"""
+Answer in Chinese(include necessary English terminology, Need to indicate whether the answer is based on the context given to you):"""
 PROMPT = PromptTemplate(
     template=prompt_template, input_variables=["context", "question"]
 )
